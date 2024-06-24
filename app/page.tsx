@@ -1,54 +1,109 @@
-import DeployButton from "../components/DeployButton";
-import AuthButton from "../components/AuthButton";
-import { createClient } from "@/utils/supabase/server";
-import ConnectSupabaseSteps from "@/components/tutorial/ConnectSupabaseSteps";
-import SignUpUserSteps from "@/components/tutorial/SignUpUserSteps";
-import Header from "@/components/Header";
+import { GlobeIcon, MailIcon, PhoneIcon } from 'lucide-react'
+import { RESUME_DATA } from '@/data/resume-data'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Button } from '@/components/ui/button'
+import { Section } from '@/components/ui/section'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
 
 export default async function Index() {
-  const canInitSupabaseClient = () => {
-    // This function is just for the interactive tutorial.
-    // Feel free to remove it once you have Supabase connected.
-    try {
-      createClient();
-      return true;
-    } catch (e) {
-      return false;
-    }
-  };
+	return (
+		<main className='max-w-2xl mx-auto w-full py-16 flex flex-col gap-4'>
+			<section className='flex items-center'>
+				<div className='flex flex-col gap-2'>
+					<h1 className='text-2xl font-bold'>{RESUME_DATA.name}</h1>
+					<p className='text-pretty font-mono text-sm text-muted-foreground'>
+						{RESUME_DATA.about}
+					</p>
+					<p className='max-w-md items-center text-pretty font-mono text-xs text-muted-foreground'>
+						<a
+							className='inline-flex gap-x-1.5 align-baseline leading-none hover:underline'
+							href={RESUME_DATA.locationLink}
+							target='_blank'
+						>
+							<GlobeIcon className='size-3' />
+							{RESUME_DATA.location}
+						</a>
+					</p>
+					<div className='flex gap-x-1 pt-1 font-mono text-sm text-muted-foreground print:hidden'>
+						{RESUME_DATA.contact.email ? (
+							<Button className='size-8' variant='outline' size='icon' asChild>
+								<a href={`mailto:${RESUME_DATA.contact.email}`}>
+									<MailIcon className='size-4' />
+								</a>
+							</Button>
+						) : null}
+						{RESUME_DATA.contact.tel ? (
+							<Button className='size-8' variant='outline' size='icon' asChild>
+								<a href={`tel:${RESUME_DATA.contact.tel}`}>
+									<PhoneIcon className='size-4' />
+								</a>
+							</Button>
+						) : null}
+						{RESUME_DATA.contact.social.map((social) => (
+							<Button
+								key={social.name}
+								className='size-8'
+								variant='outline'
+								size='icon'
+								asChild
+							>
+								<a href={social.url}>
+									<social.icon className='size-4' />
+								</a>
+							</Button>
+						))}
+					</div>
+				</div>
+				<Avatar className='size-28 rounded-lg'>
+					<AvatarImage src={RESUME_DATA.avatarUrl} alt={RESUME_DATA.name} />
+					<AvatarFallback>{RESUME_DATA.initials}</AvatarFallback>
+				</Avatar>
+			</section>
+			<Section>
+				<h2 className='text-xl font-bold'>About</h2>
+				<p className='text-pretty font-mono text-sm text-muted-foreground print:text-[12px]'>
+					{RESUME_DATA.summary}
+				</p>
+			</Section>
+			<Section>
+				<h2 className='text-xl font-bold'>Work Experience</h2>
+				{RESUME_DATA.work.map((work) => (
+					<Card key={work.company}>
+						<CardHeader className='p-0'>
+							<div className='flex items-center justify-between gap-x-2 text-base'>
+								<h3 className='inline-flex items-center justify-center gap-x-1 font-semibold leading-none'>
+									<a className='hover:underline' href={work.link}>
+										{work.company}
+									</a>
 
-  const isSupabaseConnected = canInitSupabaseClient();
+									<span className='inline-flex gap-x-1'>
+										{work.badges.map((badge) => (
+											<Badge
+												variant='secondary'
+												className='align-middle text-xs print:text-[8px] print:leading-tight print:px-1 print:py-0.5'
+												key={badge}
+											>
+												{badge}
+											</Badge>
+										))}
+									</span>
+								</h3>
+								<div className='text-sm tabular-nums text-gray-500'>
+									{work.start} - {work.end ?? 'Present'}
+								</div>
+							</div>
 
-  return (
-    <div className="flex-1 w-full flex flex-col gap-20 items-center">
-      <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-        <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm">
-          <DeployButton />
-          {isSupabaseConnected && <AuthButton />}
-        </div>
-      </nav>
-
-      <div className="animate-in flex-1 flex flex-col gap-20 opacity-0 max-w-4xl px-3">
-        <Header />
-        <main className="flex-1 flex flex-col gap-6">
-          <h2 className="font-bold text-4xl mb-4">Next steps</h2>
-          {isSupabaseConnected ? <SignUpUserSteps /> : <ConnectSupabaseSteps />}
-        </main>
-      </div>
-
-      <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
-        <p>
-          Powered by{" "}
-          <a
-            href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-            target="_blank"
-            className="font-bold hover:underline"
-            rel="noreferrer"
-          >
-            Supabase
-          </a>
-        </p>
-      </footer>
-    </div>
-  );
+							<h4 className='font-mono text-sm leading-none print:text-[12px]'>
+								{work.title}
+							</h4>
+						</CardHeader>
+						<CardContent className='mt-2 text-xs print:text-[10px] p-0'>
+							{work.description}
+						</CardContent>
+					</Card>
+				))}
+			</Section>
+		</main>
+	)
 }
