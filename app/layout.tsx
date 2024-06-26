@@ -1,6 +1,7 @@
-// import { GeistSans } from 'geist/font/sans'
 import './globals.css'
 import { Inter } from 'next/font/google'
+import { RESUME_DATA } from '@/data/resume-data'
+import { Analytics } from '@vercel/analytics/react'
 
 const defaultUrl = process.env.VERCEL_URL
 	? `https://${process.env.VERCEL_URL}`
@@ -8,8 +9,8 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata = {
 	metadataBase: new URL(defaultUrl),
-	title: 'Next.js and Supabase Starter Kit',
-	description: 'The fastest way to build apps with Next.js and Supabase',
+	title: `${RESUME_DATA.name} | ${RESUME_DATA.about}`,
+	description: RESUME_DATA.summary,
 }
 
 const inter = Inter({
@@ -27,6 +28,7 @@ export default function RootLayout({
 			<body className='bg-background text-foreground flex flex-col'>
 				{children}
 			</body>
+			<Analytics />
 		</html>
 	)
 }

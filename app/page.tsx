@@ -6,10 +6,16 @@ import { Section } from '@/components/ui/section'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { ProjectCard } from '@/components/ui/ProjectCard'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+	title: `${RESUME_DATA.name} | ${RESUME_DATA.about}`,
+	description: RESUME_DATA.summary,
+}
 
 export default async function Index() {
 	return (
-		<main className='max-w-2xl mx-auto w-full py-16 flex flex-col gap-4'>
+		<main className='max-w-2xl mx-auto w-full px-8 md:px-0 py-8 md:py-16 flex flex-col gap-4'>
 			<section className='flex items-center'>
 				<div className='flex flex-col gap-2'>
 					<h1 className='text-2xl font-bold'>{RESUME_DATA.name}</h1>
