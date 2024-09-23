@@ -45,7 +45,7 @@ export const RESUME_DATA = {
 			start: '2024',
 			end: null,
 			description:
-				'Implemented new features, led a squad, improved code delivery process, and initiated migration from Emotion to Tailwind CSS. Technologies: React, TypeScript, GraphQL',
+				'Implemented new features from end to end, performed schema updates and optimized image processing jobs. Technologies: React, TypeScript, SQL',
 		},
 		{
 			company: 'Lyell Immunopharma',
