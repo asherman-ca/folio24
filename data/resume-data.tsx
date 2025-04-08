@@ -45,7 +45,7 @@ export const RESUME_DATA = {
 			start: '2024',
 			end: null,
 			description:
-				'Implemented new features from end to end, performed schema updates and optimized image processing jobs. Technologies: React, TypeScript, SQL',
+				'Ground up development of custom CMS, Database architecture, Prod & Dev infrastructure, Image processing, Partner integrations. Technologies: React, TypeScript, SQL',
 		},
 		{
 			company: 'Lyell Immunopharma',
@@ -99,6 +99,21 @@ export const RESUME_DATA = {
 		'Python',
 	],
 	projects: [
+		{
+			title: 'Flashdeck',
+			techStack: [
+				'Side Project',
+				'Next.js',
+				'TypeScript',
+				'Node.js',
+				'Postgres',
+			],
+			description: 'AI empowered study platform',
+			link: {
+				label: 'flashdeck-five.vercel.app',
+				href: 'https://flashdeck-five.vercel.app/',
+			},
+		},
 		{
 			title: 'Deep Rock Builds',
 			techStack: [
