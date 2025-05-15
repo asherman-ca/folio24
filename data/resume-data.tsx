@@ -100,6 +100,22 @@ export const RESUME_DATA = {
 	],
 	projects: [
 		{
+			title: 'Chonkify',
+			techStack: [
+				'Side Project',
+				'Next.js',
+				'TypeScript',
+				'Node.js',
+				'Postgres',
+			],
+			description:
+				'AI image generator that trains model and generates chonky pets in under 30 seconds',
+			link: {
+				label: 'chonkify.ai',
+				href: 'https://www.chonkify.ai',
+			},
+		},
+		{
 			title: 'Flashdeck',
 			techStack: [
 				'Side Project',
